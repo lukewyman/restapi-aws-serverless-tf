@@ -2,6 +2,29 @@ resource "aws_api_gateway_rest_api" "api" {
   name = "${local.prefix}-api"
 }
 
+resource "aws_api_gateway_stage" "api" {
+    deployment_id = aws_api_gateway_deployment.api.id 
+    rest_api_id = aws_api_gateway_rest_api.api.id 
+    stage_name = "${local.prefix}-api-stage"
+
+    access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api.arn
+
+    format = jsonencode({
+      requestId               = "$context.requestId"
+      sourceIp                = "$context.identity.sourceIp"
+      requestTime             = "$context.requestTime"
+      protocol                = "$context.protocol"
+      httpMethod              = "$context.httpMethod"
+      resourcePath            = "$context.resourcePath"
+      routeKey                = "$context.routeKey"
+      status                  = "$context.status"
+      responseLength          = "$context.responseLength"
+      integrationErrorMessage = "$context.integrationErrorMessage"
+    })
+  }
+}
+
 resource "aws_api_gateway_resource" "todo" {
   path_part   = "todos"
   parent_id   = aws_api_gateway_rest_api.api.root_resource_id
@@ -39,25 +62,3 @@ resource "aws_cloudwatch_log_group" "api" {
     name = "/aws/api_gw/${local.prefix}-api"
 }
 
-resource "aws_api_gateway_stage" "api" {
-    deployment_id = aws_api_gateway_deployment.api.id 
-    rest_api_id = aws_api_gateway_rest_api.api.id 
-    stage_name = "${local.prefix}-api-stage"
-
-    access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.api.arn
-
-    format = jsonencode({
-      requestId               = "$context.requestId"
-      sourceIp                = "$context.identity.sourceIp"
-      requestTime             = "$context.requestTime"
-      protocol                = "$context.protocol"
-      httpMethod              = "$context.httpMethod"
-      resourcePath            = "$context.resourcePath"
-      routeKey                = "$context.routeKey"
-      status                  = "$context.status"
-      responseLength          = "$context.responseLength"
-      integrationErrorMessage = "$context.integrationErrorMessage"
-    })
-  }
-}
