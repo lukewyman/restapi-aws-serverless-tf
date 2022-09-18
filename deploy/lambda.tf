@@ -37,6 +37,16 @@ resource "aws_lambda_function" "get_project" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.get_project.repository_url}@${data.aws_ecr_image.get_project.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "get_project" {
+  name = "/aws/lambda/${aws_lambda_function.get_project.function_name}"
 }
 
 resource "aws_lambda_permission" "get_project" {
@@ -56,6 +66,16 @@ resource "aws_lambda_function" "get_all_projects" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.get_all_projects.repository_url}@${data.aws_ecr_image.get_all_projects.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "get_all_projects" {
+  name = "/aws/lambda/${aws_lambda_function.get_all_projects.function_name}"
 }
 
 resource "aws_lambda_permission" "get_all_projects" {
@@ -75,6 +95,12 @@ resource "aws_lambda_function" "update_project" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.update_project.repository_url}@${data.aws_ecr_image.update_project.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
+    }
+  }
 }
 
 resource "aws_lambda_permission" "update_project" {
@@ -94,6 +120,12 @@ resource "aws_lambda_function" "delete_project" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.delete_project.repository_url}@${data.aws_ecr_image.delete_project.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
+    }
+  }
 }
 
 resource "aws_lambda_permission" "delete_project" {
@@ -113,6 +145,12 @@ resource "aws_lambda_function" "create_todo" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.create_todo.repository_url}@${data.aws_ecr_image.create_todo.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      TODOS_TABLE_NAME = aws_dynamodb_table.todos.name
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "create_todo" {
@@ -138,6 +176,12 @@ resource "aws_lambda_function" "get_todo" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.get_todo.repository_url}@${data.aws_ecr_image.get_todo.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      TODOS_TABLE_NAME = aws_dynamodb_table.todos.name
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "get_todo" {
@@ -163,6 +207,12 @@ resource "aws_lambda_function" "get_all_todos" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.get_all_todos.repository_url}@${data.aws_ecr_image.get_all_todos.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      TODOS_TABLE_NAME = aws_dynamodb_table.todos.name
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "get_all_todos" {
@@ -188,6 +238,12 @@ resource "aws_lambda_function" "update_todo" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.update_todo.repository_url}@${data.aws_ecr_image.update_todo.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      TODOS_TABLE_NAME = aws_dynamodb_table.todos.name
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "update_todo" {
@@ -213,6 +269,12 @@ resource "aws_lambda_function" "delete_todo" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.delete_todo.repository_url}@${data.aws_ecr_image.delete_todo.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      TODOS_TABLE_NAME = aws_dynamodb_table.todos.name
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "delete_todo" {
