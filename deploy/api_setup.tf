@@ -14,7 +14,12 @@ resource "aws_api_gateway_deployment" "api" {
     aws_api_gateway_method.get_project,
     aws_api_gateway_method.get_all_projects,
     aws_api_gateway_method.update_project,
-    aws_api_gateway_method.delete_project
+    aws_api_gateway_method.delete_project,
+    aws_api_gateway_method.post_todo,
+    aws_api_gateway_method.get_todo,
+    aws_api_gateway_method.get_all_todos,
+    aws_api_gateway_method.update_todo,
+    aws_api_gateway_method.delete_todo
   ]
 
   rest_api_id = aws_api_gateway_rest_api.api.id
@@ -23,17 +28,29 @@ resource "aws_api_gateway_deployment" "api" {
 
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.projects,
+      aws_api_gateway_resource.project,
+      aws_api_gateway_resource.todos,
+      aws_api_gateway_resource.todo,
       aws_api_gateway_method.post_project,
       aws_api_gateway_integration.post_project,
       aws_api_gateway_method.get_all_projects,
       aws_api_gateway_integration.get_all_projects,
-      aws_api_gateway_resource.project,
       aws_api_gateway_method.get_project,
       aws_api_gateway_integration.get_project,
       aws_api_gateway_method.update_project,
       aws_api_gateway_integration.update_project,
       aws_api_gateway_method.delete_project,
-      aws_api_gateway_integration.delete_project
+      aws_api_gateway_integration.delete_project,
+      aws_api_gateway_method.post_todo,
+      aws_api_gateway_integration.post_todo,
+      aws_api_gateway_method.get_todo,
+      aws_api_gateway_integration.get_todo,
+      aws_api_gateway_method.get_all_todos,
+      aws_api_gateway_integration.get_all_todos,
+      aws_api_gateway_method.update_todo,
+      aws_api_gateway_integration.update_todo,
+      aws_api_gateway_method.delete_todo,
+      aws_api_gateway_integration.delete_todo
     ]))
   }
 

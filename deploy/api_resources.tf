@@ -139,22 +139,99 @@ resource "aws_api_gateway_integration" "delete_project" {
 
 # POST TODO
 
+resource "aws_api_gateway_method" "post_todo" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.todos.id
+  http_method   = "POST"
+  authorization = "NONE"
+}
 
+resource "aws_api_gateway_integration" "post_todo" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.todos.id
+  http_method = aws_api_gateway_method.post_todo.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.create_todo.invoke_arn
+}
 
 
 # GET TODO
 
+resource "aws_api_gateway_method" "get_todo" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.todo.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
 
+resource "aws_api_gateway_integration" "get_todo" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.todo.id
+  http_method = aws_api_gateway_method.get_todo.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.get_todo.invoke_arn
+}
 
 
 # GET ALL TODOS
 
+resource "aws_api_gateway_method" "get_all_todos" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.todos.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
 
+resource "aws_api_gateway_integration" "get_all_todos" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.todos.id
+  http_method = aws_api_gateway_method.get_all_todos.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.get_all_todos.invoke_arn
+}
 
 
 # UPDATE TODO
 
+resource "aws_api_gateway_method" "update_todo" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.todo.id
+  http_method   = "PUT"
+  authorization = "NONE"
+}
 
+resource "aws_api_gateway_integration" "update_todo" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.todo.id
+  http_method = aws_api_gateway_method.update_todo.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.update_todo.invoke_arn
+}
 
 
 # DELETE TODO
+
+resource "aws_api_gateway_method" "delete_todo" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.todo.id
+  http_method   = "DELETE"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "delete_todo" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.todo.id
+  http_method = aws_api_gateway_method.delete_todo.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.delete_todo.invoke_arn
+}

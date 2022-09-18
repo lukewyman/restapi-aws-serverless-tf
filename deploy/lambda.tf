@@ -115,6 +115,19 @@ resource "aws_lambda_function" "create_todo" {
   package_type  = "Image"
 }
 
+resource "aws_cloudwatch_log_group" "create_todo" {
+  name = "/aws/lambda/${aws_lambda_function.create_todo.function_name}"
+}
+
+resource "aws_lambda_permission" "create_todo" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.create_todo.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+# GET TODO
+
 resource "aws_lambda_function" "get_todo" {
   depends_on = [
     null_resource.get_todo_state
@@ -126,6 +139,19 @@ resource "aws_lambda_function" "get_todo" {
   image_uri     = "${aws_ecr_repository.get_todo.repository_url}@${data.aws_ecr_image.get_todo.id}"
   package_type  = "Image"
 }
+
+resource "aws_cloudwatch_log_group" "get_todo" {
+  name = "/aws/lambda/${aws_lambda_function.get_todo.function_name}"
+}
+
+resource "aws_lambda_permission" "get_todo" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_todo.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+# GET ALL TODOS
 
 resource "aws_lambda_function" "get_all_todos" {
   depends_on = [
@@ -139,6 +165,19 @@ resource "aws_lambda_function" "get_all_todos" {
   package_type  = "Image"
 }
 
+resource "aws_cloudwatch_log_group" "get_all_todos" {
+  name = "/aws/lambda/${aws_lambda_function.get_all_todos.function_name}"
+}
+
+resource "aws_lambda_permission" "get_all_todos" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_all_todos.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+# UPDATE TODO
+
 resource "aws_lambda_function" "update_todo" {
   depends_on = [
     null_resource.update_todo_state
@@ -151,6 +190,19 @@ resource "aws_lambda_function" "update_todo" {
   package_type  = "Image"
 }
 
+resource "aws_cloudwatch_log_group" "update_todo" {
+  name = "/aws/lambda/${aws_lambda_function.update_todo.function_name}"
+}
+
+resource "aws_lambda_permission" "update_todo" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.update_todo.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+# DELETE TODO
+
 resource "aws_lambda_function" "delete_todo" {
   depends_on = [
     null_resource.delete_todo_state
@@ -162,6 +214,19 @@ resource "aws_lambda_function" "delete_todo" {
   image_uri     = "${aws_ecr_repository.delete_todo.repository_url}@${data.aws_ecr_image.delete_todo.id}"
   package_type  = "Image"
 }
+
+resource "aws_cloudwatch_log_group" "delete_todo" {
+  name = "/aws/lambda/${aws_lambda_function.delete_todo.function_name}"
+}
+
+resource "aws_lambda_permission" "delete_todo" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.delete_todo.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+# PRIORITIZE TODO
 
 resource "aws_lambda_function" "prioritize_todo" {
   depends_on = [
