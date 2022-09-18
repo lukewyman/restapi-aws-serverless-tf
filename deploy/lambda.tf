@@ -8,6 +8,16 @@ resource "aws_lambda_function" "create_project" {
   timeout       = 300
   image_uri     = "${aws_ecr_repository.create_project.repository_url}@${data.aws_ecr_image.create_project.id}"
   package_type  = "Image"
+
+  environment {
+    variables = {
+      PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "create_project" {
+  name = "/aws/lambda/${aws_lambda_function.create_project.function_name}"
 }
 
 resource "aws_lambda_permission" "create_project" {

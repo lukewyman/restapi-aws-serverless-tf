@@ -8,20 +8,20 @@ resource "aws_api_gateway_resource" "projects" {
 
 resource "aws_api_gateway_resource" "project" {
   path_part   = "{projectId}"
-  parent_id   = aws_api_gateway_resource.projects.id 
+  parent_id   = aws_api_gateway_resource.projects.id
   rest_api_id = aws_api_gateway_rest_api.api.id
 }
 
 resource "aws_api_gateway_resource" "todos" {
-  path_part = "todos"
-  parent_id = aws_api_gateway_resource.project.id 
-  rest_api_id = aws_api_gateway_rest_api.api.id 
+  path_part   = "todos"
+  parent_id   = aws_api_gateway_resource.project.id
+  rest_api_id = aws_api_gateway_rest_api.api.id
 }
 
 resource "aws_api_gateway_resource" "todo" {
-  path_part = "{todoId}"
-  parent_id = aws_api_gateway_resource.todos.id 
-  rest_api_id = aws_api_gateway_rest_api.api.id 
+  path_part   = "{todoId}"
+  parent_id   = aws_api_gateway_resource.todos.id
+  rest_api_id = aws_api_gateway_rest_api.api.id
 }
 
 

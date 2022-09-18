@@ -1,0 +1,27 @@
+{  
+    "Version": "2012-10-17",
+    "Statement":[{
+      "Effect": "Allow",
+      "Action": [
+       "dynamodb:BatchGetItem",
+       "dynamodb:GetItem",
+       "dynamodb:Get*",
+       "dynamodb:Query",
+       "dynamodb:Scan",
+       "dynamodb:BatchWriteItem",
+       "dynamodb:PutItem",
+       "dynamodb:UpdateItem",
+       "dynamodb:DeleteItem",
+       "dynamodb:GetShardIterator",
+       "dynamodb:DescribeStream",
+       "dynamodb:ListStreams",
+       "dynamodb:ListShards",
+       "dynamodb:GetRecords"
+      ],
+      "Resource": [
+        "arn:aws:dynamodb:us-west-2:919980474747:table/*-projects",
+        "arn:aws:dynamodb:us-west-2:919980474747:table/*-projects/*"
+      ]
+     }
+    ]
+  }
