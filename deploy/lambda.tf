@@ -1,3 +1,98 @@
+resource "aws_lambda_function" "create_project" {
+  depends_on = [
+    null_resource.create_project_state
+  ]
+
+  function_name = "${local.prefix}-create-project"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.create_project.repository_url}@${data.aws_ecr_image.create_project.id}"
+  package_type  = "Image"
+}
+
+resource "aws_lambda_permission" "create_project" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.create_project.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+resource "aws_lambda_function" "get_project" {
+  depends_on = [
+    null_resource.get_project_state
+  ]
+
+  function_name = "${local.prefix}-get-project"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.get_project.repository_url}@${data.aws_ecr_image.get_project.id}"
+  package_type  = "Image"
+}
+
+resource "aws_lambda_permission" "get_project" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_project.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+resource "aws_lambda_function" "get_all_projects" {
+  depends_on = [
+    null_resource.get_all_projects_state
+  ]
+
+  function_name = "${local.prefix}-get-all-projects"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.get_all_projects.repository_url}@${data.aws_ecr_image.get_all_projects.id}"
+  package_type  = "Image"
+}
+
+resource "aws_lambda_permission" "get_all_projects" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_all_projects.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+resource "aws_lambda_function" "update_project" {
+  depends_on = [
+    null_resource.update_project_state
+  ]
+
+  function_name = "${local.prefix}-update-project"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.update_project.repository_url}@${data.aws_ecr_image.update_project.id}"
+  package_type  = "Image"
+}
+
+resource "aws_lambda_permission" "update_project" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.update_project.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
+resource "aws_lambda_function" "delete_project" {
+  depends_on = [
+    null_resource.delete_project_state
+  ]
+
+  function_name = "${local.prefix}-delete-project"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.delete_project.repository_url}@${data.aws_ecr_image.delete_project.id}"
+  package_type  = "Image"
+}
+
+resource "aws_lambda_permission" "delete_project" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.delete_project.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
+
 resource "aws_lambda_function" "create_todo" {
   depends_on = [
     null_resource.create_todo_state

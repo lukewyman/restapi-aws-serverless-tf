@@ -35,17 +35,17 @@ data "aws_ecr_image" "create_todo" {
 # GET TODO
 
 resource "aws_ecr_repository" "get_todo" {
-    name = "${local.prefix}-get-todo"
+  name = "${local.prefix}-get-todo"
 }
 
 resource "null_resource" "get_todo_state" {
-    triggers = {
-        python_file = md5(file("${path.module}/../app/get_todo/lambda/function.py"))
-        # requirements_file = md5(file("${path.module}/../app/get_todo/lambda/function.py"))
-        docker_file = md5(file("${path.module}/../app/get_todo/Dockerfile"))
-    }
+  triggers = {
+    python_file = md5(file("${path.module}/../app/get_todo/lambda/function.py"))
+    # requirements_file = md5(file("${path.module}/../app/get_todo/lambda/function.py"))
+    docker_file = md5(file("${path.module}/../app/get_todo/Dockerfile"))
+  }
 
-    provisioner "local-exec" {
+  provisioner "local-exec" {
     command = <<EOF
             aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${local.account_id}.dkr.ecr.${var.region}.amazonaws.com
             cd ${path.module}/../app/get_todo
@@ -69,17 +69,17 @@ data "aws_ecr_image" "get_todo" {
 # GET ALL TODOS
 
 resource "aws_ecr_repository" "get_all_todos" {
-    name = "${local.prefix}-get-all-todos"
+  name = "${local.prefix}-get-all-todos"
 }
 
 resource "null_resource" "get_all_todos_state" {
-    triggers = {
-        python_file = md5(file("${path.module}/../app/get_all_todos/lambda/function.py"))
-        # requirements_file = md5(file("${path.module}/../app/get_all_todos/lambda/function.py"))
-        docker_file = md5(file("${path.module}/../app/get_all_todos/Dockerfile"))
-    }
+  triggers = {
+    python_file = md5(file("${path.module}/../app/get_all_todos/lambda/function.py"))
+    # requirements_file = md5(file("${path.module}/../app/get_all_todos/lambda/function.py"))
+    docker_file = md5(file("${path.module}/../app/get_all_todos/Dockerfile"))
+  }
 
-    provisioner "local-exec" {
+  provisioner "local-exec" {
     command = <<EOF
             aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${local.account_id}.dkr.ecr.${var.region}.amazonaws.com
             cd ${path.module}/../app/get_all_todos
@@ -103,17 +103,17 @@ data "aws_ecr_image" "get_all_todos" {
 # UPDATE TODO
 
 resource "aws_ecr_repository" "update_todo" {
-    name = "${local.prefix}-update-todo"
+  name = "${local.prefix}-update-todo"
 }
 
 resource "null_resource" "update_todo_state" {
-    triggers = {
-        python_file = md5(file("${path.module}/../app/update_todo/lambda/function.py"))
-        # requirements_file = md5(file("${path.module}/../app/update_todo/lambda/function.py"))
-        docker_file = md5(file("${path.module}/../app/update_todo/Dockerfile"))
-    }
+  triggers = {
+    python_file = md5(file("${path.module}/../app/update_todo/lambda/function.py"))
+    # requirements_file = md5(file("${path.module}/../app/update_todo/lambda/function.py"))
+    docker_file = md5(file("${path.module}/../app/update_todo/Dockerfile"))
+  }
 
-    provisioner "local-exec" {
+  provisioner "local-exec" {
     command = <<EOF
             aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${local.account_id}.dkr.ecr.${var.region}.amazonaws.com
             cd ${path.module}/../app/update_todo
@@ -137,17 +137,17 @@ data "aws_ecr_image" "update_todo" {
 # DELETE TODO
 
 resource "aws_ecr_repository" "delete_todo" {
-    name = "${local.prefix}-delete-todo"
+  name = "${local.prefix}-delete-todo"
 }
 
 resource "null_resource" "delete_todo_state" {
-    triggers = {
-        python_file = md5(file("${path.module}/../app/delete_todo/lambda/function.py"))
-        # requirements_file = md5(file("${path.module}/../app/delete_todo/lambda/function.py"))
-        docker_file = md5(file("${path.module}/../app/delete_todo/Dockerfile"))
-    }
+  triggers = {
+    python_file = md5(file("${path.module}/../app/delete_todo/lambda/function.py"))
+    # requirements_file = md5(file("${path.module}/../app/delete_todo/lambda/function.py"))
+    docker_file = md5(file("${path.module}/../app/delete_todo/Dockerfile"))
+  }
 
-    provisioner "local-exec" {
+  provisioner "local-exec" {
     command = <<EOF
             aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${local.account_id}.dkr.ecr.${var.region}.amazonaws.com
             cd ${path.module}/../app/delete_todo
@@ -171,17 +171,17 @@ data "aws_ecr_image" "delete_todo" {
 # PRIORITIZE TODO
 
 resource "aws_ecr_repository" "prioritize_todo" {
-    name = "${local.prefix}-prioritize-todo"
+  name = "${local.prefix}-prioritize-todo"
 }
 
 resource "null_resource" "prioritize_todo_state" {
-    triggers = {
-        python_file = md5(file("${path.module}/../app/prioritize_todo/lambda/function.py"))
-        # requirements_file = md5(file("${path.module}/../app/prioritize_todo/lambda/function.py"))
-        docker_file = md5(file("${path.module}/../app/prioritize_todo/Dockerfile"))
-    }
+  triggers = {
+    python_file = md5(file("${path.module}/../app/prioritize_todo/lambda/function.py"))
+    # requirements_file = md5(file("${path.module}/../app/prioritize_todo/lambda/function.py"))
+    docker_file = md5(file("${path.module}/../app/prioritize_todo/Dockerfile"))
+  }
 
-    provisioner "local-exec" {
+  provisioner "local-exec" {
     command = <<EOF
             aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${local.account_id}.dkr.ecr.${var.region}.amazonaws.com
             cd ${path.module}/../app/prioritize_todo
