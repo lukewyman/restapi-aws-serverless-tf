@@ -35,8 +35,10 @@ resource "aws_iam_policy" "dynamodb_policy" {
         "dynamodb:GetRecords"
       ],
       "Resource" : [
-        "${aws_dynamodb_table.projects.arn}",
-        "${aws_dynamodb_table.projects.arn}/*"
+        "${aws_dynamodb_table.todo_lists.arn}",
+        "${aws_dynamodb_table.todo_lists.arn}/*",
+        "${aws_dynamodb_table.todo_items.arn}",
+        "${aws_dynamodb_table.todo_items.arn}/*",
       ]
       }
     ]

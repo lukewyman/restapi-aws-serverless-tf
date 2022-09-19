@@ -1,27 +1,27 @@
-resource "aws_dynamodb_table" "projects" {
-  name         = "${local.prefix}-projects"
+resource "aws_dynamodb_table" "todo_lists" {
+  name         = "${local.prefix}-todo-lists"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "project_id"
+  hash_key     = "list_name"
 
   attribute {
-    name = "project_id"
+    name = "list_name"
     type = "S"
   }
 }
 
-resource "aws_dynamodb_table" "todos" {
-  name         = "${local.prefix}-todos"
+resource "aws_dynamodb_table" "todo_items" {
+  name         = "${local.prefix}-todo-items"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "project_id"
-  range_key    = "todo_id"
+  hash_key     = "list_name"
+  range_key    = "item_name"
 
   attribute {
-    name = "project_id"
+    name = "list_name"
     type = "S"
   }
 
   attribute {
-    name = "todo_id"
+    name = "item_name"
     type = "S"
   }
 }
