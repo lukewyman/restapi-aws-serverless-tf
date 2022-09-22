@@ -1,10 +1,15 @@
 # POST TODO LIST
 
 resource "aws_api_gateway_method" "post_todo_list" {
+
   rest_api_id   = aws_api_gateway_rest_api.api.id
   resource_id   = aws_api_gateway_resource.todo_lists.id
   http_method   = "POST"
   authorization = "NONE"
+  request_models = {
+    "application/json" = aws_api_gateway_model.todo_list.name
+  }
+  request_validator_id = aws_api_gateway_request_validator.todo_list.id
 }
 
 resource "aws_api_gateway_integration" "post_todo_list" {
@@ -71,7 +76,7 @@ resource "aws_api_gateway_method" "update_todo_list" {
   authorization = "NONE"
 
   request_parameters = {
-    "method.request.path.todo_listId" = true
+    "method.request.path.todoListId" = true
   }
 }
 
@@ -117,6 +122,15 @@ resource "aws_api_gateway_method" "post_todo_item" {
   resource_id   = aws_api_gateway_resource.todo_items.id
   http_method   = "POST"
   authorization = "NONE"
+
+  request_models = {
+    "application/json" = aws_api_gateway_model.todo_item.name
+  }
+  request_validator_id = aws_api_gateway_request_validator.todo_item.id
+
+  request_parameters = {
+    "method.request.path.todoListId" = true
+  }
 }
 
 resource "aws_api_gateway_integration" "post_todo_item" {
