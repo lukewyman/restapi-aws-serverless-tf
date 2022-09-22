@@ -19,7 +19,7 @@ resource "aws_api_gateway_deployment" "api" {
     # aws_api_gateway_method.get_todo,
     # aws_api_gateway_method.get_all_todos,
     # aws_api_gateway_method.update_todo,
-    # aws_api_gateway_method.delete_todo
+    aws_api_gateway_method.delete_todo_item
   ]
 
   rest_api_id = aws_api_gateway_rest_api.api.id
@@ -49,8 +49,8 @@ resource "aws_api_gateway_deployment" "api" {
       #   aws_api_gateway_integration.get_all_todos,
       #   aws_api_gateway_method.update_todo,
       #   aws_api_gateway_integration.update_todo,
-      #   aws_api_gateway_method.delete_todo,
-      #   aws_api_gateway_integration.delete_todo
+      aws_api_gateway_method.delete_todo_item,
+      aws_api_gateway_integration.delete_todo_item
     ]))
   }
 
