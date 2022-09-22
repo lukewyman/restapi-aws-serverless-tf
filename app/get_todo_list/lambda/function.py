@@ -22,17 +22,17 @@ def get_todo_list(list_name):
     except ClientError as e:
         logger.error(e.response['Error']['Code'], e.response['Error']['Message'])
     else:
-        return response['Items']
+        return response.get('Attributes')
     
 
-def handler(event, context):
-    list_name = event['pathParameters']['listName']
+def handler(event, context):    
 
     response = {}
     response['headers'] = {}
     response['headers']['Content-Type'] = 'application/json'
 
     try:
+        list_name = event['pathParameters']['listName']
         todo_list = get_todo_list(list_name)
         if todo_list is None:
             response['statusCode'] = 404

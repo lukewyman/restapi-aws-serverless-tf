@@ -28,7 +28,6 @@ def handler(event, context):
     description = event_body['description']
     
     todo_list = {}
-    todo_list['todo_list_id'] = str(uuid.uuid4())
     todo_list['list_name'] = list_name
     todo_list['description'] = description
  

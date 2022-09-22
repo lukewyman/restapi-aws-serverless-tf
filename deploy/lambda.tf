@@ -56,58 +56,62 @@ resource "aws_lambda_permission" "get_todo_list" {
 }
 
 
-# resource "aws_lambda_function" "get_all_projects" {
-#   depends_on = [
-#     null_resource.get_all_projects_state
-#   ]
+resource "aws_lambda_function" "get_all_todo_lists" {
+  depends_on = [
+    null_resource.get_all_todo_lists_state
+  ]
 
-#   function_name = "${local.prefix}-get-all-projects"
-#   role          = aws_iam_role.lambda_role.arn
-#   timeout       = 300
-#   image_uri     = "${aws_ecr_repository.get_all_projects.repository_url}@${data.aws_ecr_image.get_all_projects.id}"
-#   package_type  = "Image"
+  function_name = "${local.prefix}-get-all-todo-lists"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.get_all_todo_lists.repository_url}@${data.aws_ecr_image.get_all_todo_lists.id}"
+  package_type  = "Image"
 
-#   environment {
-#     variables = {
-#       PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
-#     }
-#   }
-# }
+  environment {
+    variables = {
+      TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
+    }
+  }
+}
 
-# resource "aws_cloudwatch_log_group" "get_all_projects" {
-#   name = "/aws/lambda/${aws_lambda_function.get_all_projects.function_name}"
-# }
+resource "aws_cloudwatch_log_group" "get_all_todo_lists" {
+  name = "/aws/lambda/${aws_lambda_function.get_all_todo_lists.function_name}"
+}
 
-# resource "aws_lambda_permission" "get_all_projects" {
-#   action        = "lambda:InvokeFunction"
-#   function_name = aws_lambda_function.get_all_projects.function_name
-#   principal     = "apigateway.amazonaws.com"
-# }
+resource "aws_lambda_permission" "get_all_todo_lists" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_all_todo_lists.function_name
+  principal     = "apigateway.amazonaws.com"
+}
 
 
-# resource "aws_lambda_function" "update_project" {
-#   depends_on = [
-#     null_resource.update_project_state
-#   ]
+resource "aws_lambda_function" "update_todo_list" {
+  depends_on = [
+    null_resource.update_todo_list_state
+  ]
 
-#   function_name = "${local.prefix}-update-project"
-#   role          = aws_iam_role.lambda_role.arn
-#   timeout       = 300
-#   image_uri     = "${aws_ecr_repository.update_project.repository_url}@${data.aws_ecr_image.update_project.id}"
-#   package_type  = "Image"
+  function_name = "${local.prefix}-update-todo-list"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.update_todo_list.repository_url}@${data.aws_ecr_image.update_todo_list.id}"
+  package_type  = "Image"
 
-#   environment {
-#     variables = {
-#       PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
-#     }
-#   }
-# }
+  environment {
+    variables = {
+      TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
+    }
+  }
+}
 
-# resource "aws_lambda_permission" "update_project" {
-#   action        = "lambda:InvokeFunction"
-#   function_name = aws_lambda_function.update_project.function_name
-#   principal     = "apigateway.amazonaws.com"
-# }
+resource "aws_cloudwatch_log_group" "update_todo_list" {
+  name = "/aws/lambda/${aws_lambda_function.update_todo_list.function_name}"
+}
+
+resource "aws_lambda_permission" "update_todo_list" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.update_todo_list.function_name
+  principal     = "apigateway.amazonaws.com"
+}
 
 
 # resource "aws_lambda_function" "delete_project" {

@@ -7,6 +7,6 @@ def handler(event, context):
     response['headers']['statusCode'] = 200
     response['headers']['Content-Type'] = 'applicaton/json'
 
-    response['body'] = json.dumps('Hello from GET-ALL-PROJECTS lambda!')
+    response['body'] = json.dumps('Hello from GET-ALL-TODO-LISTS lambda!')
 
     return response
