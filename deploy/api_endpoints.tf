@@ -144,44 +144,44 @@ resource "aws_api_gateway_integration" "post_todo_item" {
 }
 
 
-# # GET TODO
+# GET TODO
 
-# resource "aws_api_gateway_method" "get_todo" {
-#   rest_api_id   = aws_api_gateway_rest_api.api.id
-#   resource_id   = aws_api_gateway_resource.todo.id
-#   http_method   = "GET"
-#   authorization = "NONE"
-# }
+resource "aws_api_gateway_method" "get_todo_item" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.todo_item.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
 
-# resource "aws_api_gateway_integration" "get_todo" {
-#   rest_api_id = aws_api_gateway_rest_api.api.id
-#   resource_id = aws_api_gateway_resource.todo.id
-#   http_method = aws_api_gateway_method.get_todo.http_method
+resource "aws_api_gateway_integration" "get_todo_item" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.todo_item.id
+  http_method = aws_api_gateway_method.get_todo_item.http_method
 
-#   integration_http_method = "POST"
-#   type                    = "AWS_PROXY"
-#   uri                     = aws_lambda_function.get_todo.invoke_arn
-# }
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.get_todo_item.invoke_arn
+}
 
 
-# # GET ALL TODOS
+# GET ALL TODO ITEMS
 
-# resource "aws_api_gateway_method" "get_all_todos" {
-#   rest_api_id   = aws_api_gateway_rest_api.api.id
-#   resource_id   = aws_api_gateway_resource.todos.id
-#   http_method   = "GET"
-#   authorization = "NONE"
-# }
+resource "aws_api_gateway_method" "get_all_todo_items" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.todo_items.id
+  http_method   = "GET"
+  authorization = "NONE"
+}
 
-# resource "aws_api_gateway_integration" "get_all_todos" {
-#   rest_api_id = aws_api_gateway_rest_api.api.id
-#   resource_id = aws_api_gateway_resource.todos.id
-#   http_method = aws_api_gateway_method.get_all_todos.http_method
+resource "aws_api_gateway_integration" "get_all_todo_items" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.todo_items.id
+  http_method = aws_api_gateway_method.get_all_todo_items.http_method
 
-#   integration_http_method = "POST"
-#   type                    = "AWS_PROXY"
-#   uri                     = aws_lambda_function.get_all_todos.invoke_arn
-# }
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.get_all_todo_items.invoke_arn
+}
 
 
 # # UPDATE TODO

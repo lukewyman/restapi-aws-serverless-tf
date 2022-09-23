@@ -17,7 +17,7 @@ resource "aws_api_gateway_deployment" "api" {
     # aws_api_gateway_method.delete_project,
     aws_api_gateway_method.post_todo_item,
     # aws_api_gateway_method.get_todo,
-    # aws_api_gateway_method.get_all_todos,
+    aws_api_gateway_method.get_all_todo_items,
     # aws_api_gateway_method.update_todo,
     aws_api_gateway_method.delete_todo_item
   ]
@@ -45,8 +45,8 @@ resource "aws_api_gateway_deployment" "api" {
       aws_api_gateway_integration.post_todo_item,
       # aws_api_gateway_method.get_todo_item,
       #   aws_api_gateway_integration.get_todo,
-      #   aws_api_gateway_method.get_all_todos,
-      #   aws_api_gateway_integration.get_all_todos,
+        aws_api_gateway_method.get_all_todo_items,
+        aws_api_gateway_integration.get_all_todo_items,
       #   aws_api_gateway_method.update_todo,
       #   aws_api_gateway_integration.update_todo,
       aws_api_gateway_method.delete_todo_item,

@@ -168,35 +168,35 @@ resource "aws_lambda_permission" "create_todo_item" {
 }
 
 
-# # GET TODO
+# GET TODO
 
-# resource "aws_lambda_function" "get_todo" {
-#   depends_on = [
-#     null_resource.get_todo_state
-#   ]
+resource "aws_lambda_function" "get_todo_item" {
+  depends_on = [
+    null_resource.get_todo_item_state
+  ]
 
-#   function_name = "${local.prefix}-get-todo"
-#   role          = aws_iam_role.lambda_role.arn
-#   timeout       = 300
-#   image_uri     = "${aws_ecr_repository.get_todo.repository_url}@${data.aws_ecr_image.get_todo.id}"
-#   package_type  = "Image"
+  function_name = "${local.prefix}-get-todo-item"
+  role          = aws_iam_role.lambda_role.arn
+  timeout       = 300
+  image_uri     = "${aws_ecr_repository.get_todo_item.repository_url}@${data.aws_ecr_image.get_todo_item.id}"
+  package_type  = "Image"
 
-#   environment {
-#     variables = {
-#       TODOS_TABLE_NAME = aws_dynamodb_table.todos.name
-#     }
-#   }
-# }
+  environment {
+    variables = {
+      TODO_ITEMS_TABLE_NAME = aws_dynamodb_table.todo_items.name
+    }
+  }
+}
 
-# resource "aws_cloudwatch_log_group" "get_todo" {
-#   name = "/aws/lambda/${aws_lambda_function.get_todo.function_name}"
-# }
+resource "aws_cloudwatch_log_group" "get_todo_item" {
+  name = "/aws/lambda/${aws_lambda_function.get_todo_item.function_name}"
+}
 
-# resource "aws_lambda_permission" "get_todo" {
-#   action        = "lambda:InvokeFunction"
-#   function_name = aws_lambda_function.get_todo.function_name
-#   principal     = "apigateway.amazonaws.com"
-# }
+resource "aws_lambda_permission" "get_todo_item" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_todo_item.function_name
+  principal     = "apigateway.amazonaws.com"
+}
 
 
 # GET ALL TODO ITEMS

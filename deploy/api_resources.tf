@@ -25,7 +25,7 @@ resource "aws_api_gateway_resource" "todo_item" {
 }
 
 
-# MODELS
+# MODELS & VALIDATORS
 
 resource "aws_api_gateway_model" "todo_list" {
   name         = "todolist"
