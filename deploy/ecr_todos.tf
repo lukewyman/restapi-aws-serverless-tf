@@ -50,7 +50,7 @@ resource "null_resource" "get_todo_item_state" {
             aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${local.account_id}.dkr.ecr.${var.region}.amazonaws.com
             cd ${path.module}/../app/get_todo_item
             docker build -t ${local.prefix}-get-todo-item .
-            docker tag ${local.prefix}-get-todo ${aws_ecr_repository.get_todo_item.repository_url}:1
+            docker tag ${local.prefix}-get-todo-item ${aws_ecr_repository.get_todo_item.repository_url}:1
             docker push ${aws_ecr_repository.get_todo_item.repository_url}:1
         EOF
   }
