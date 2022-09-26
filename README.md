@@ -27,7 +27,7 @@ terraform {
 - create an S3 bucket
 - change the `bucket` name to `[your-bucket-name]`.
 - change the `key` to `[your-bucket-name].tfstate`.
-- create a DynamoDB table
+- create a DynamoDB table with the partition key named `LockID` of type `string`.
 - change the `dynamodb_table` to `[your-table-name]`.
 
 ### To deploy the Terraform:
