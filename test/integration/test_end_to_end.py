@@ -75,7 +75,7 @@ def test_delete_todo_item(api_endpoint):
     body = response.json()
 
     assert response.status_code == 200
-    assert body[0]['list_name'] == list_name
-    assert body[0]['item_name'] == item_name
-    assert body[0]['details'] == details
-    assert body[0]['completed'] == True
+    assert body['list_name'] == list_name
+    assert body['item_name'] == item_name
+    assert body['details'] == details
+    assert body['completed'] == True
