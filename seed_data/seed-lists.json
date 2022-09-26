@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "list_name": {
+                "S": "list_name_GET"
+            },
+            "description": {
+                "S": "descrition_GET"
+            }
+        },
+        {
+            "list_name" : {
+                "S": "list_name_GET_ALL_1"
+            },
+            "description": {
+                "S": "descrition_GET_ALL_1"
+            }
+        },
+        {
+            "list_name" : {
+                "S": "list_name_GET_ALL_2"
+            },
+            "description": {
+                "S": "descrition_GET_ALL_2"
+            }
+        }
+    ]
+}

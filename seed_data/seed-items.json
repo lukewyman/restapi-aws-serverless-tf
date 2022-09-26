@@ -1,0 +1,60 @@
+{
+    "items": [
+        {
+            "list_name": {
+                "S": "list_name_GET"
+            },
+            "item_name": {
+                "S": "item_name_GET"
+            },
+            "details": {
+                "S": "details GET"
+            },
+            "completed": {
+                "BOOL": false
+            }
+        },
+        {
+            "list_name": {
+                "S": "list_name_GET_ALL"
+            },
+            "item_name": {
+                "S": "item_name_GET_ALL_1"
+            },
+            "details": {
+                "S": "details GET ALL 1"
+            },
+            "completed": {
+                "BOOL": false
+            }
+        },
+        {
+            "list_name": {
+                "S": "list_name_GET_ALL"
+            },
+            "item_name": {
+                "S": "item_name_GET_ALL_2"
+            },
+            "details": {
+                "S": "details GET ALL 2"
+            },
+            "completed": {
+                "BOOL": true
+            }
+        },
+        {
+            "list_name": {
+                "S": "list_name_DELETE"
+            },
+            "item_name": {
+                "S": "item_name_DELETE"
+            },
+            "details": {
+                "S": "details DELETE"
+            },
+            "completed": {
+                "BOOL": false
+            }
+        }
+    ]
+}
