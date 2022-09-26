@@ -2,12 +2,14 @@
 
 This is a demo Serverless REST API using:
 
-- Terraform
+- Terraform v1.3.0
 - AWS API Gateway REST API
-- AWS Lambda (written in Python)
+- AWS Lambda / Python 3.9
 - DynamoDB
 
 ## To Deploy and Test
+No dependencies are required to deploy and run, as the Lambdas only use `boto3`. Tests are run with `pytest`. You'll need that, and the `requests` library installed to do so (contained in Pipfile `dev-packages`).
+<br />
 
 ### Setup Terraform state
 The project uses S3 and DynamoDB to manage Terraform state, configured in `deploy/main.tf`, as shown:
