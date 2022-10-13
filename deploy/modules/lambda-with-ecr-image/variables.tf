@@ -8,6 +8,11 @@ variable "function_name" {
     description = "function_name will be applied to the Lambda function, the ECR Repository and ECR Image"
 }
 
+variable "timeout" {
+  type = number
+  default = 300
+}
+
 variable "function_dir" {
     type = string 
     description = "The directory location of the Lambda code."
@@ -21,4 +26,9 @@ variable "docker_dir" {
 variable "image_tag" {
     type = number 
     description = "Tag number for the ECR image."
+}
+
+variable "environment_variables" {
+  type = map 
+  default = {}
 }
