@@ -1,307 +1,185 @@
-resource "aws_lambda_function" "create_todo_list" {
-  depends_on = [
-    null_resource.create_todo_list_state
-  ]
+module "lambda_create_todo_list" {
+  source = "./modules/lambda-with-ecr-image"
 
+  region        = var.region
   function_name = "${local.prefix}-create-todo-list"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.create_todo_list.repository_url}@${data.aws_ecr_image.create_todo_list.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/create_todo_list"
+  function_dir  = "${path.module}/../app/create_todo_list/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "create_todo_list" {
-  name = "/aws/lambda/${aws_lambda_function.create_todo_list.function_name}"
-}
 
-resource "aws_lambda_permission" "create_todo_list" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.create_todo_list.function_name
-  principal     = "apigateway.amazonaws.com"
-}
+module "lambda_get_todo_list" {
+  source = "./modules/lambda-with-ecr-image"
 
-
-resource "aws_lambda_function" "get_todo_list" {
-  depends_on = [
-    null_resource.get_todo_list_state
-  ]
-
+  region        = var.region
   function_name = "${local.prefix}-get-todo-list"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.get_todo_list.repository_url}@${data.aws_ecr_image.get_todo_list.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/get_todo_list"
+  function_dir  = "${path.module}/../app/get_todo_list/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "get_todo_list" {
-  name = "/aws/lambda/${aws_lambda_function.get_todo_list.function_name}"
-}
 
-resource "aws_lambda_permission" "get_todo_list" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.get_todo_list.function_name
-  principal     = "apigateway.amazonaws.com"
-}
+module "lambda_get_all_todo_lists" {
+  source = "./modules/lambda-with-ecr-image"
 
-
-resource "aws_lambda_function" "get_all_todo_lists" {
-  depends_on = [
-    null_resource.get_all_todo_lists_state
-  ]
-
+  region        = var.region
   function_name = "${local.prefix}-get-all-todo-lists"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.get_all_todo_lists.repository_url}@${data.aws_ecr_image.get_all_todo_lists.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/get_all_todo_lists"
+  function_dir  = "${path.module}/../app/get_all_todo_lists/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "get_all_todo_lists" {
-  name = "/aws/lambda/${aws_lambda_function.get_all_todo_lists.function_name}"
-}
 
-resource "aws_lambda_permission" "get_all_todo_lists" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.get_all_todo_lists.function_name
-  principal     = "apigateway.amazonaws.com"
-}
+module "lambda_update_todo_list" {
+  source = "./modules/lambda-with-ecr-image"
 
-
-resource "aws_lambda_function" "update_todo_list" {
-  depends_on = [
-    null_resource.update_todo_list_state
-  ]
-
+  region        = var.region
   function_name = "${local.prefix}-update-todo-list"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.update_todo_list.repository_url}@${data.aws_ecr_image.update_todo_list.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/update_todo_list"
+  function_dir  = "${path.module}/../app/update_todo_list/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "update_todo_list" {
-  name = "/aws/lambda/${aws_lambda_function.update_todo_list.function_name}"
+
+module "lambda_delete_todo_list" {
+  source = "./modules/lambda-with-ecr-image"
+
+  region        = var.region
+  function_name = "${local.prefix}-delete-todo-list"
+  timeout       = 300
+  docker_dir    = "${path.module}/../app/delete_todo_list"
+  function_dir  = "${path.module}/../app/delete_todo_list/lambda"
+  image_tag     = 1
+
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
+  }
 }
 
-resource "aws_lambda_permission" "update_todo_list" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.update_todo_list.function_name
-  principal     = "apigateway.amazonaws.com"
-}
 
+module "lambda_create_todo_item" {
+  source = "./modules/lambda-with-ecr-image"
 
-# resource "aws_lambda_function" "delete_project" {
-#   depends_on = [
-#     null_resource.delete_project_state
-#   ]
-
-#   function_name = "${local.prefix}-delete-project"
-#   role          = aws_iam_role.lambda_role.arn
-#   timeout       = 300
-#   image_uri     = "${aws_ecr_repository.delete_project.repository_url}@${data.aws_ecr_image.delete_project.id}"
-#   package_type  = "Image"
-
-#   environment {
-#     variables = {
-#       PROJECTS_TABLE_NAME = aws_dynamodb_table.projects.name
-#     }
-#   }
-# }
-
-# resource "aws_lambda_permission" "delete_project" {
-#   action        = "lambda:InvokeFunction"
-#   function_name = aws_lambda_function.delete_project.function_name
-#   principal     = "apigateway.amazonaws.com"
-# }
-
-
-resource "aws_lambda_function" "create_todo_item" {
-  depends_on = [
-    null_resource.create_todo_item_state
-  ]
-
+  region        = var.region
   function_name = "${local.prefix}-create-todo-item"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.create_todo_item.repository_url}@${data.aws_ecr_image.create_todo_item.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/create_todo_item"
+  function_dir  = "${path.module}/../app/create_todo_item/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_ITEMS_TABLE_NAME = aws_dynamodb_table.todo_items.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "create_todo_item" {
-  name = "/aws/lambda/${aws_lambda_function.create_todo_item.function_name}"
-}
 
-resource "aws_lambda_permission" "create_todo_item" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.create_todo_item.function_name
-  principal     = "apigateway.amazonaws.com"
-}
+module "lambda_get_todo_item" {
+  source = "./modules/lambda-with-ecr-image"
 
-
-# GET TODO
-
-resource "aws_lambda_function" "get_todo_item" {
-  depends_on = [
-    null_resource.get_todo_item_state
-  ]
-
+  region        = var.region
   function_name = "${local.prefix}-get-todo-item"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.get_todo_item.repository_url}@${data.aws_ecr_image.get_todo_item.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/get_todo_item"
+  function_dir  = "${path.module}/../app/get_todo_item/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_ITEMS_TABLE_NAME = aws_dynamodb_table.todo_items.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "get_todo_item" {
-  name = "/aws/lambda/${aws_lambda_function.get_todo_item.function_name}"
-}
 
-resource "aws_lambda_permission" "get_todo_item" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.get_todo_item.function_name
-  principal     = "apigateway.amazonaws.com"
-}
+module "lambda_get_all_todo_items" {
+  source = "./modules/lambda-with-ecr-image"
 
-
-# GET ALL TODO ITEMS
-
-resource "aws_lambda_function" "get_all_todo_items" {
-  depends_on = [
-    null_resource.get_all_todo_items_state
-  ]
-
+  region        = var.region
   function_name = "${local.prefix}-get-all-todo-items"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.get_all_todo_items.repository_url}@${data.aws_ecr_image.get_all_todo_items.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/get_all_todo_items"
+  function_dir  = "${path.module}/../app/get_all_todo_items/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_ITEMS_TABLE_NAME = aws_dynamodb_table.todo_items.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "get_all_todo_items" {
-  name = "/aws/lambda/${aws_lambda_function.get_all_todo_items.function_name}"
+
+module "lambda_update_todo_item" {
+  source = "./modules/lambda-with-ecr-image"
+
+  region        = var.region
+  function_name = "${local.prefix}-update-todo-item"
+  timeout       = 300
+  docker_dir    = "${path.module}/../app/update_todo_item"
+  function_dir  = "${path.module}/../app/update_todo_item/lambda"
+  image_tag     = 1
+
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
+  }
 }
 
-resource "aws_lambda_permission" "get_all_todo_items" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.get_all_todo_items.function_name
-  principal     = "apigateway.amazonaws.com"
-}
 
+module "lambda_delete_todo_item" {
+  source = "./modules/lambda-with-ecr-image"
 
-# # UPDATE TODO
-
-# resource "aws_lambda_function" "update_todo" {
-#   depends_on = [
-#     null_resource.update_todo_state
-#   ]
-
-#   function_name = "${local.prefix}-update-todo"
-#   role          = aws_iam_role.lambda_role.arn
-#   timeout       = 300
-#   image_uri     = "${aws_ecr_repository.update_todo.repository_url}@${data.aws_ecr_image.update_todo.id}"
-#   package_type  = "Image"
-
-#   environment {
-#     variables = {
-#       TODOS_TABLE_NAME = aws_dynamodb_table.todos.name
-#     }
-#   }
-# }
-
-# resource "aws_cloudwatch_log_group" "update_todo" {
-#   name = "/aws/lambda/${aws_lambda_function.update_todo.function_name}"
-# }
-
-# resource "aws_lambda_permission" "update_todo" {
-#   action        = "lambda:InvokeFunction"
-#   function_name = aws_lambda_function.update_todo.function_name
-#   principal     = "apigateway.amazonaws.com"
-# }
-
-
-# DELETE TODO
-
-resource "aws_lambda_function" "delete_todo_item" {
-  depends_on = [
-    null_resource.delete_todo_item_state
-  ]
-
+  region        = var.region
   function_name = "${local.prefix}-delete-todo-item"
-  role          = aws_iam_role.lambda_role.arn
   timeout       = 300
-  image_uri     = "${aws_ecr_repository.delete_todo_item.repository_url}@${data.aws_ecr_image.delete_todo_item.id}"
-  package_type  = "Image"
+  docker_dir    = "${path.module}/../app/delete_todo_item"
+  function_dir  = "${path.module}/../app/delete_todo_item/lambda"
+  image_tag     = 1
 
-  environment {
-    variables = {
-      TODO_ITEMS_TABLE_NAME = aws_dynamodb_table.todo_items.name
-    }
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
   }
 }
 
-resource "aws_cloudwatch_log_group" "delete_todo_item" {
-  name = "/aws/lambda/${aws_lambda_function.delete_todo_item.function_name}"
+
+module "lambda_prioritize_todo_item" {
+  source = "./modules/lambda-with-ecr-image"
+
+  region        = var.region
+  function_name = "${local.prefix}-prioritize-todo-item"
+  timeout       = 300
+  docker_dir    = "${path.module}/../app/prioritize_todo_item"
+  function_dir  = "${path.module}/../app/prioritize_todo_item/lambda"
+  image_tag     = 1
+
+  environment_variables = {
+    TODO_LISTS_TABLE_NAME = aws_dynamodb_table.todo_lists.name
+  }
 }
 
-resource "aws_lambda_permission" "delete_todo_item" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.delete_todo_item.function_name
-  principal     = "apigateway.amazonaws.com"
+
+resource "aws_iam_policy_attachment" "create_todo_list_dynamodb_policy_attachment" {
+  name = "${local.prefix}-dynamodb-policy-attachment"
+  roles = [
+    module.lambda_create_todo_list.lambda_role_name,
+    module.lambda_get_all_todo_lists.lambda_role_name,
+    module.lambda_get_todo_list.lambda_role_name
+  ]
+  policy_arn = aws_iam_policy.dynamodb_policy.arn
 }
-
-
-# # PRIORITIZE TODO
-
-# resource "aws_lambda_function" "prioritize_todo" {
-#   depends_on = [
-#     null_resource.delete_todo_state
-#   ]
-
-#   function_name = "${local.prefix}-prioritize-todo"
-#   role          = aws_iam_role.lambda_role.arn
-#   timeout       = 300
-#   image_uri     = "${aws_ecr_repository.prioritize_todo.repository_url}@${data.aws_ecr_image.prioritize_todo.id}"
-#   package_type  = "Image"
-# }
