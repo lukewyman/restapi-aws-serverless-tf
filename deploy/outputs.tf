@@ -3,5 +3,5 @@
 # }
 
 output "todo_items_table_name" {
-    value = aws_dynamodb_table.todo_items.name
+  value = aws_dynamodb_table.todo_items.name
 }

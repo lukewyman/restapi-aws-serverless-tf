@@ -31,3 +31,9 @@ resource "aws_lambda_function" "lambda_function" {
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name = "/aws/lambda/${var.function_name}"
 }
+
+resource "aws_lambda_permission" "lambda_apigw_permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_function.function_name
+  principal     = "apigateway.amazonaws.com"
+}
